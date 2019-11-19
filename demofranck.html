@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Objects</h2>
+
+<h3>JavaScript cookies : click the botton for display tje cookies associated for the document </h3>>
+
+<button onclick="mycookiesfunction()">try it</button>
+
+<button onclick="myDomainServerfunction()">domain</button>
+
+
+<p id="demo"></p>
+
+<p id="demo1"></p>
+
+<p id="demo2"></p>
+
+<p id="demo3"></p>
+
+<p id="demo4"></p>
+
+<script>
+// Create an object:
+
+function myfunction(){
+
+  var nameObject = ["kamdem", "teguia","franck"];
+
+  var text="";
+
+  var x = 0;
+
+  var variable ="my name is";
+  
+  var len = nameObject.length;
+
+  for(; x<len;){
+
+    text += nameObject[x]+ "<br>";
+
+        x++;
+  }
+    
+  document.getElementById("demo1").innerHTML = variable+"  "+text;
+     
+     //return text;
+
+}
+
+//function what needs you to displays the document cookie
+
+function mycookiesfunction(){
+
+    document.getElementById("demo3").innerHTML ="my cookies document is "+ document.cookie;
+
+
+}
+
+
+function myDomainServerfunction(){
+
+document.getElementById("demo4").innerHTML ="my domain document is "+ document.domain;
+
+}
+
+//document.getElementById("demo1").innerHTML = myfunction();
+
+
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+
+// Display some data from the object:
+document.getElementById("demo").innerHTML =
+person.firstName + " is " + person.age + " years alllll.";
+
+
+document.getElementById("demo2").innerHTML = myfunction();
+
+
+</script>
+
+</body>
+</html>
