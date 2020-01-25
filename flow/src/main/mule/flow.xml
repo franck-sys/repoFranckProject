@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b2b21f16-92ed-4b4f-8f66-922a2b0f17b6" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="9d8824a8-fb9c-4360-9e13-76853762471d" file="configure.yaml" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="edfa2e8f-ebe0-4e00-b0df-be5f8b6d3cd1" />
+	<http:request-config name="HTTP_Request_configuration1" doc:name="HTTP Request configuration" doc:id="9f57ff81-0650-42eb-8bd9-05a07f036536" />
+	<flow name="godbyeFlow" doc:id="6a967f74-8496-4908-baaf-b117708591e8" >
+		<http:listener doc:name="GET/hello" doc:id="abd2c2e7-2a79-47b8-92ac-a8af6f8d8212" config-ref="HTTP_Listener_config" path="/hello" allowedMethods="GET"/>
+		<flow-ref doc:name="subflow" doc:id="be42edb2-8a29-4f99-948e-25d7f8e66c16" name="flowSub_Flow"/>
+		<flow-ref doc:name="privateFlow" doc:id="0eefaab8-3add-4d00-ad03-be16cf5b7e6f" name="privateFlow" />
+		<logger level="INFO" doc:name="payload" doc:id="0070a11f-8519-45cd-ab76-0468eea44b65" message='#[{message : "valid request"}]'/>
+	</flow>
+	<flow name="privateFlow" doc:id="a522b18e-93fc-447b-abf0-a0f4ca05952d">
+		<http:request method="GET" doc:name="Get/goodbye" doc:id="2f3754dc-20c2-4122-905d-005d6eb6eef0" config-ref="HTTP_Request_configuration" path="/" />
+	</flow>
+	<sub-flow name="flowSub_Flow" doc:id="80ea967c-8962-47dc-8762-f93877f22f1b" >
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="e532e4cf-bf3b-433a-aba3-7ed3d697fddd" variableName="firstname"/>
+		<set-payload value='#[{message : "payload non settato"}]' doc:name="Set Payload" doc:id="1b6ac862-320b-4359-9a85-ec1bf693c9e3" />
+	</sub-flow>
+</mule>
