@@ -3,11 +3,8 @@ pipeline {
   tools {
 	jdk 'jdk1.8'
 	maven 'maven3'
+	checkout scm
   }
-	checkout{
-	
-	  checkout 'scm' 
-	}
 	
   stages {
     stage('Unit Test') { 
