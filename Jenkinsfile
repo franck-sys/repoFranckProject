@@ -1,10 +1,12 @@
 pipeline {
 node {	
-	jdk - tool name:'jdk1.8'
-	maven - tool name:'maven3'
           checkout scm
      }
   agent any
+  tools {
+	jdk 'jdk1.8'
+	maven 'maven3'
+  }
   stages {
     stage('Unit Test') { 
       steps {
