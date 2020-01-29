@@ -1,6 +1,6 @@
 pipeline {
 node{
-   jdk - tool name:'jdk1.8'
+   jdk - tool name:'jdk'
    maven - tool name:'maven3'
    checkout scm
 
