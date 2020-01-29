@@ -1,7 +1,4 @@
 pipeline {
-node {	
-          checkout scm
-     }
   agent any
   tools {
 	jdk 'jdk1.8'
