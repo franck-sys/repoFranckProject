@@ -30,8 +30,8 @@ node{
 		ANYPOINT_DEPLOYMENT_REGION ="eu-west-2"
 		ANYPOINT_DEPLOYMENT_WORKTYPE = "micro"
 		ANYPOINT_DEPLOYMENT_WORKS = "1"
-		MAVEN_HOME = ${maven3}
-		JAVA_HOME = ${jdk}
+		MAVEN_HOME = ${MVN_HOME}
+		JAVA_HOME = ${JAVA_HOME}
       }
       steps {
         sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
