@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Unit Test') { 
       steps {
+	 checkout scm     
         sh 'mvn clean test'
       }
     }
