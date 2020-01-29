@@ -1,4 +1,5 @@
 pipeline {
+node{	
 
 	jdk - tool {
 		name:'jdk1.8.0_231'
@@ -8,7 +9,7 @@ pipeline {
 	}
    checkout scm
 
-
+}
   agent any
   stages {
     stage('Unit Test') { 
