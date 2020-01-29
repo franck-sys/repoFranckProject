@@ -3,13 +3,12 @@ pipeline {
   tools {
 	jdk 'jdk1.8'
 	maven 'maven3'
-	checkout scm
   }
 	
   stages {
     stage('Unit Test') { 
       steps {    
-        sh 'mvn clean test'
+        sh 'mvn clean test'      
       }
     }
     
