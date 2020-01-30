@@ -34,7 +34,14 @@ pipeline {
 		ANYPOINT_DEPLOYMENT_WORKS = "1"
       }
       steps {
+	      script{
+		      if(isUnix()){
         sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
+		      }
+		      else{
+		      
+		             bat  sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
+		      }
       }
     }
   }
