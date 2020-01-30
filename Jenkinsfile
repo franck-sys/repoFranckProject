@@ -9,7 +9,7 @@ pipeline {
     stage('Unit Test') { 
       steps {    
          if (isUnix()) sh 'mvn clean test' 
-	 else bat sh'mvn clean test     
+	 else bat sh'mvn clean test'    
       }
     }
     
