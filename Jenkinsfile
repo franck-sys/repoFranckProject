@@ -8,11 +8,11 @@ pipeline {
   stages {
     stage('Unit Test') { 
       steps {    
-	      if {
-		      (isUnix()) sh 'mvn clean test' 
+	      if(isUnix()) {
+		   sh 'mvn clean test' 
 		 }
 	      else {
-		      bat sh'mvn clean test'    
+		      bat sh 'mvn clean test'    
 	      }
       }
     }
