@@ -43,6 +43,7 @@ pipeline {
 		             bat  sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
 		      }
       }
+      }      
     }
   }
 }
