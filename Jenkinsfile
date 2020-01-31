@@ -6,14 +6,14 @@ pipeline {
   }
 	
   stages {
-    stage('Unit Test') { 
+    stage('package') { 
       steps {  
 	 script{
 	      if(isUnix()) {
-		   sh 'mvn clean test' 
+		   sh 'mvn clean package' 
 		 }
 	      else {
-		      bat sh 'mvn clean test'    
+		      bat sh 'mvn clean package'    
 	      }
 	 }	 
       }
