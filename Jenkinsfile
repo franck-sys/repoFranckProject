@@ -4,20 +4,6 @@ pipeline {
 	jdk 'jdk1.8'
 	maven 'maven3'
   }
-	
-  stages {
-    stage('package') { 
-      steps {  
-	 script{
-	      if(isUnix()) {
-		   sh 'mvn clean package' 
-		 }
-	      else {
-		      bat sh 'mvn clean package'    
-	      }
-	 }	 
-      }
-    }
     
     stage('Deploy CloudHub') { 
       environment {
