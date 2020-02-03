@@ -11,10 +11,22 @@ pipeline {
   stage('build'){
   
     steps{
-	
-	   sh '${MAVEN_HOME}/bin/mvn clean package'	
+	    script{
+		    if(isUnix()){		    
+	   sh '''
+	    ${MAVEN_HOME}/bin/mvn clean package	
+	    
+	    '''
+		    }else{
+		    
+		    bat '''
+	    ${MAVEN_HOME}/bin/mvn clean package	
+	    
+	    '''
+		    
+		    }
 	}
-  
+   }
   }
   
   
