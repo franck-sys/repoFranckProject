@@ -10,7 +10,7 @@ pipeline {
 	maven 'maven3'
   }
   
-  Stages {
+  stages {
     stage('build'){
 	  steps{
              if(isUnix()){	  
