@@ -7,39 +7,6 @@ pipeline {
   }
   
   stages {
-    stage('build'){
-	    steps{
-	  script{
-             if (isUnix()){	  
-		  sh 'make'	 
-           archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
-             }
-              else{
-			         bat 'make'  
-					 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true  
-			  }
-	  }
-	    }
-	  
-	}  
-  
-    stage('Test'){ 	    
-	    steps{
-	    script{
-      
-         if(isUnix()){
-		 sh 'make check || true'
-		 junit '**/target/*.xml'
-		 }
-		 else {
-		      bat 'make check || true'
-		      junit '**/target/*.xml'
-		 }
-	    }
-	    }
-      
-    }
-	
     stage('Deploy CloudHub') { 
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
@@ -61,7 +28,7 @@ pipeline {
 		      }
 		      else{
 		      
-		             bat  sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
+		             bat 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
 		      }
       }
       }      
