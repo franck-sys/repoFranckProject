@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Deploy CloudHub') { 
       environment { 
-	        CLOUDHUB_CREDENTIALS = credentials('credential-test-fr')
+	        credential-test-fr = credentials('credential-test-fr')
 		ANYPOINT_BUSINESS_GROUP = "cloudhub organisation"
 		ANYPOINT_URI = "https://anypoint.mulesoft.com"
 		ANYPOINT_DEPLOYMENT_ENV_DEV = "developement"
