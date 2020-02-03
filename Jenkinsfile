@@ -8,22 +8,24 @@ pipeline {
   
   stages {
     stage('build'){
-	  steps{
-             if(isUnix()){	  
+	  script{
+             if (isUnix()){	  
 		  sh 'make'	 
            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
              }
               else{
 			         bat 'make'  
 					 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true  
-			  }			 
+			  }
 	  }
+	  
 	}  
   }
   
   stages {
     stage('Test') { 
-      steps {
+	    script{
+      
          if(isUnix()){
 		 sh 'make check || true'
 		 junit '**/target/*.xml'
@@ -32,7 +34,8 @@ pipeline {
 		      bat 'make check || true'
 		      junit '**/target/*.xml'
 		 }
-      }
+	    }	    
+      
     }
 	}
     
