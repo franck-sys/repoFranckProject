@@ -7,29 +7,6 @@ pipeline {
   }
   
   stages {
-  
-  stage('build'){
-  
-    steps{
-	    script{
-		    if(isUnix()){		    
-	   sh '''
-	    ${MAVEN_HOME}/bin/mvn clean package	
-	    
-	    '''
-		    }else{
-		    
-		    bat '''
-	    ${MAVEN_HOME}/bin/mvn clean package	
-	    
-	    '''
-		    
-		    }
-	}
-   }
-  }
-  
-  
     stage('Deploy CloudHub') { 
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
