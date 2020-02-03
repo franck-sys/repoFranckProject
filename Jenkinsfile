@@ -35,7 +35,7 @@ pipeline {
 		      else{
 		      
 		             bat '''
-					 mvn deploy -P cloudhub -Dmule.version=4.2.2 -Dusername=${CLOUDHUB_CREDENTIALS_USR} -Dpassword=${CLOUDHUB_CREDENTIALS_PWD} -Dcloudhub.application.name=flow-training-example
+					 mvn deploy -P cloudhub -Dmule.version=4.2.2 -Dusername=${credential-test-fr_USR} -Dpassword=${credential-test-fr_PWD} -Dcloudhub.application.name=flow-training-example
 		-Dcloudhub.env=${ANYPOINT_DEPLOYMENT_DEV_NAME} -Dcloudhub.region=${ANYPOINT_DEPLOYMENT_REGION} -Dcloudhub.worktype=${ANYPOINT_DEPLOYMENT_WORKTYPE}
 			      -Dcloudhub.works=${ANYPOINT_DEPLOYMENT_WORKS} -Dcloudhub.businessgroup=${ANYPOINT_BUSINESS_GROUP}
 				      
