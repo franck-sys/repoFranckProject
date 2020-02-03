@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('Deploy CloudHub') { 
       environment {
-	        ANYPOINT_CREDENTIALS = credentials('anypoint.credentials') 
 	        ANYPOINT_USERNAME = "franckTeguia" 
 	        ANYPOINT_PASSWORD = "Franck*2020"
 		ANYPOINT_BUSINESS_GROUP = "cloudhub organisation"
