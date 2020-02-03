@@ -7,6 +7,17 @@ pipeline {
   }
   
   stages {
+  
+  stage('build'){
+  
+    steps{
+	
+	   sh '${MAVEN_HOME}/bin/mvn clean package'	
+	}
+  
+  }
+  
+  
     stage('Deploy CloudHub') { 
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
@@ -24,11 +35,15 @@ pipeline {
       steps {
 	      script{
 		      if(isUnix()){
-        sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
+        sh 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS} -Danypoint.password=${ANYPOINT_CREDENTIALS} -Dcloudhub.application.name=${ANYPOINT_APPLICATION_NAME}
+		-Dcloudhub.env=${ANYPOINT_DEPLOYMENT_DEV_NAME} -Dcloudhub.region=${ANYPOINT_DEPLOYMENT_REGION} -Dcloudhub.worktype=${ANYPOINT_DEPLOYMENT_WORKTYPE}
+			      -Dcloudhub.works=${ANYPOINT_DEPLOYMENT_WORKS} -Dcloudhub.businessgroup=${ANYPOINT_BUSINESS_GROUP} 
 		      }
 		      else{
 		      
-		             bat 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${franckTeguia} -Danypoint.password=${Franck*2020}' 
+		             bat 'mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS} -Danypoint.password=${ANYPOINT_CREDENTIALS} -Dcloudhub.application.name=${ANYPOINT_APPLICATION_NAME}
+		-Dcloudhub.env=${ANYPOINT_DEPLOYMENT_DEV_NAME} -Dcloudhub.region=${ANYPOINT_DEPLOYMENT_REGION} -Dcloudhub.worktype=${ANYPOINT_DEPLOYMENT_WORKTYPE}
+			      -Dcloudhub.works=${ANYPOINT_DEPLOYMENT_WORKS} -Dcloudhub.businessgroup=${ANYPOINT_BUSINESS_GROUP}
 		      }
       }
       }      
