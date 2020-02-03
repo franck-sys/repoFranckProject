@@ -10,6 +10,8 @@ pipeline {
     stage('Deploy CloudHub') { 
       environment {
 	        ANYPOINT_CREDENTIALS = credentials('anypoint.credentials') 
+	        ANYPOINT_USERNAME = "franckTeguia" 
+	        ANYPOINT_PASSWORD = "Franck*2020"
 		ANYPOINT_BUSINESS_GROUP = "cloudhub organisation"
 		ANYPOINT_URI = "https://anypoint.mulesoft.com"
 		ANYPOINT_DEPLOYMENT_ENV_DEV = "developement"
@@ -27,7 +29,7 @@ pipeline {
 	      script{
 		      if(isUnix()){
         sh '''
-		mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS} -Danypoint.password=${ANYPOINT_CREDENTIALS} -Dcloudhub.application.name=flow-training-example
+		mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_USERNAME} -Danypoint.password=${ANYPOINT_PASSWORD} -Dcloudhub.application.name=flow-training-example
 		-Dcloudhub.env=${ANYPOINT_DEPLOYMENT_DEV_NAME} -Dcloudhub.region=${ANYPOINT_DEPLOYMENT_REGION} -Dcloudhub.worktype=${ANYPOINT_DEPLOYMENT_WORKTYPE}
 			      -Dcloudhub.works=${ANYPOINT_DEPLOYMENT_WORKS} -Dcloudhub.businessgroup=${ANYPOINT_BUSINESS_GROUP} 
 			'''	  
@@ -35,7 +37,7 @@ pipeline {
 		      else{
 		      
 		             bat '''
-					 mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS} -Danypoint.password=${ANYPOINT_CREDENTIALS} -Dcloudhub.application.name=flow-training-example
+					 mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_USERNAME} -Danypoint.password=${ANYPOINT_PASSWORD} -Dcloudhub.application.name=flow-training-example
 		-Dcloudhub.env=${ANYPOINT_DEPLOYMENT_DEV_NAME} -Dcloudhub.region=${ANYPOINT_DEPLOYMENT_REGION} -Dcloudhub.worktype=${ANYPOINT_DEPLOYMENT_WORKTYPE}
 			      -Dcloudhub.works=${ANYPOINT_DEPLOYMENT_WORKS} -Dcloudhub.businessgroup=${ANYPOINT_BUSINESS_GROUP}
 				      
