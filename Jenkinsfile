@@ -22,11 +22,8 @@ pipeline {
 	    }
 	  
 	}  
-  }
   
-  stages {
-    stage('Test') { 
-	    
+    stage('Test'){ 	    
 	    steps{
 	    script{
       
@@ -42,8 +39,7 @@ pipeline {
 	    }
       
     }
-	}
-    
+	
     stage('Deploy CloudHub') { 
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
@@ -70,4 +66,5 @@ pipeline {
       }
       }      
     }
+	}
   }
