@@ -42,6 +42,9 @@ pipeline {
 		ANYPOINT_DEPLOYMENT_REGION = "eu-west-2"
 		ANYPOINT_DEPLOYMENT_WORKTYPE = "micro"
 		ANYPOINT_DEPLOYMENT_WORKS = "1"
+	        MAVEN_HOME = "${maven3}"
+	        JAVA_HOME = "${jdk}"
+			
       }
       steps {
 	      script{
