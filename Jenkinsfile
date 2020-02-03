@@ -1,9 +1,44 @@
 pipeline {
   agent any
+  
+  node{
+   checkout scm
+  }
+  
   tools {
 	jdk 'jdk1.8'
 	maven 'maven3'
   }
+  
+  Stages {
+    stage('build'){
+	  steps{
+             if(isUnix()){	  
+		  sh 'make'	 
+           archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+             }
+              else{
+			         bat 'make'  
+					 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true  
+			  }			 
+	  }
+	}  
+  }
+  
+  stages {
+    stage('Test') { 
+      steps {
+         if(isUnix()){
+		 sh 'make check || true'
+		 junit '**/target/*.xml'
+		 }
+		 else {
+		      bat 'make check || true'
+		      junit '**/target/*.xml'
+		 }
+      }
+    }
+	}
     
     stage('Deploy CloudHub') { 
       environment {
