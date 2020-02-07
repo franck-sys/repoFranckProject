@@ -7,9 +7,11 @@ pipeline {
   }
   
     stage('Deploy CloudHub') { 
+	    
       environment { 
 	        ANYPOINT_CREDENTIALS = credentials('credential-test-fr')
       }
+	    
       steps {
 	      script{
 		      if(isUnix()){
@@ -25,6 +27,7 @@ pipeline {
 				      
 			 '''
 		      }
+	      }
       }
       }      
     }
