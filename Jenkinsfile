@@ -10,8 +10,8 @@ pipeline {
     stage('Deploy CloudHub') { 
       environment { 
 	        ANYPOINT_CREDENTIALS = credentials('credential-test-fr')
-	        MAVEN_HOME = "${maven}"
-	        JAVA_HOME = "${jdk}"
+	        MAVEN_HOME = "${maven3}"
+	        JAVA_HOME = "${jdk1.8}"
       }
       steps {
 	      script{
