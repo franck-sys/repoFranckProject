@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="Save-input-Sub_Flow" doc:id="98747f3c-4ffe-41c5-af3c-f12c1ddb1b09" >
+		<set-variable value="#[attributes.uriParams.'id']" doc:name="ID" doc:id="552926b5-c764-4931-8a0e-c24d27a96861" variableName="id_user"/>
+		<set-variable value='#[attributes.headers."correlation-id" default uuid()]' doc:name="CorrelationID" doc:id="e12cc6f4-9283-410e-acd5-04e3ef4e3d0f" variableName="correlationID"/>
+		<set-variable value="#[payload]" doc:name="payload" doc:id="df3e8ec2-eb37-44cf-9e0e-9cd3c5a49440" variableName="payload"/>
+		<set-variable value="#[attributes]" doc:name="attribute" doc:id="4f844510-5a94-45b9-9ad5-c73a5ed8701e" variableName="Attribute"/>
+	</sub-flow>
+</mule>

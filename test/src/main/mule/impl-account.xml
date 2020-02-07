@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="Implement-accountFlow" doc:id="6fdcd75b-bc92-4063-a818-0a29e488b576" >
+		<logger level="INFO" doc:name="Logger" doc:id="c7acf557-cd6f-4990-a1fc-bf3e9673d977" message="#[payload]"/>
+		<flow-ref doc:name="Save-Input-subFlow" doc:id="47d5b3b5-35fa-411d-8650-f1473b8de29f" name="Save-input-Sub_Flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="aaed74d9-632f-4537-8eaa-ccaf27330cec" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	id: payload.id as String,
+	name: payload.firstname,
+	surname: payload.lastName,
+	birthDate: now() as Date,
+	nationality: payload.country,
+	firstName: payload.firstname,
+    prefLanguage: payload.phone as String
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="input_postCustomerAccount" doc:id="aeca73db-b9de-4aa2-b4d6-ce6ef6f2a97c" message="#[payload]"/>
+		<http:request method="POST" doc:name="Post CustomerAccount" doc:id="e4a85f9f-58c8-47b6-9774-3ab0b6725fa8" config-ref="HTTP_Request_AccountConfig" path="/CustomerAccount">
+		</http:request>
+	</flow>
+</mule>

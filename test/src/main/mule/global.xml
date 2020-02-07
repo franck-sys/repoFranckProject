@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<global-property doc:name="Global Property" doc:id="e2ed80fd-edb8-4663-b513-8d2ef6d1d9b5" name="env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="8a7f4712-ac4c-49bf-aa10-aa5f24a05833" file="ft-x-api.${env}.properties" />
+	<http:request-config name="HTTP_Request_AccountConfig" doc:name="HTTP Request configuration" doc:id="daf100f7-a7a4-4c4d-a71e-08ffcd1c78e8" basePath="${api.process.account.basepath}">
+		<http:request-connection host="${api.process.account.host}"/>
+		<http:default-headers >
+			<http:default-header key="Client-Id" value="${api.process.client.id}" />
+			<http:default-header key="Client-Secret" value="${api.process.client.secret}" />
+			<http:default-header key="Correlation-Id" value="${api.process.correlationID}" />
+		</http:default-headers>
+	</http:request-config>
+	<configuration doc:name="Configuration" doc:id="a837ca4a-8983-4514-a2b4-afd6b5321729" defaultErrorHandler-ref="globalError_Handler" />
+	<error-handler name="globalError_Handler" doc:id="ab945b94-a771-4547-85bd-0a0c2d3ed5b6" >
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="da65d9a2-afbc-4fdf-bb4d-0a6a06ce2ade" >
+			<logger level="INFO" doc:name="Log_mule_event" doc:id="c6aa7fe5-b5c2-4614-912a-9ac2b7fb00a6" message='#[output application/json
+---
+"mule-event":{
+    error: error,
+    attributes: attributes,
+    payload: payload,
+}]'/>
+			<set-variable value="#[error.errorType]" doc:name="Set Variable" doc:id="35c971f5-d548-4cc2-a532-5a330841a93a" variableName="messageError"/>
+			<ee:transform doc:name="Transform Message" doc:id="7632a1d6-54b6-4a9b-9615-5141a9cb097b" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+ bool: vars.messageError,
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="3883203a-f898-4c9e-bcc1-9776229f2c22" message="#[payload]"/>
+			<ee:transform doc:name="Transform Message" doc:id="0836dd11-2340-4428-902d-7363e04bfabe" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	flag: payload.bool.identifier as String contains "BAD"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="d20d55e9-9d5f-4df3-94ad-2625f18cbb51" message="#[payload]"/>
+			<ee:transform doc:name="Transform Message" doc:id="4a8a73d1-97d4-4d9b-b6c9-e3969dd2fb9d" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+    if(payload.flag==true){
+    	"code": 400,
+    	"reason": "REQUEST INVALID",
+        "message": error.description,
+        correlationId: vars.correlationId default uuid(),
+        logTimeStamp: now()
+    	
+    }else{
+    	
+      "code": 500,	
+      "reason": "Internal Server Error",
+      "message": error.description,
+      correlationId: vars.correlationId default uuid(),
+      logTimeStamp: now()
+    	
+    }]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger" doc:id="3f6673a9-bcd2-4c9d-aba7-9b245eb59e9a" message="#[payload]"/>
+			<logger level="INFO" doc:name="Log_output" doc:id="49f07c39-f781-4a6d-9874-806603ef9a56" message='#[output application/json ---
+{
+    applicationName: "ft-x-api",
+    flow: "[GLOBAL ERROR HANDLER]",
+    logStep: "[GENERIC ERROR RESPONSE PAYLOAD]",
+    correlationId: vars.correlationId,
+    logTimestamp: now(),
+    payload: payload
+}]'/>
+		</on-error-continue>
+	</error-handler>
+</mule>

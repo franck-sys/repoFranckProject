@@ -1,0 +1,12 @@
+{
+  "id": "account id",
+  "birthDate": "2019-11-17",
+  "email": "email@email.za.com",
+  "nationality": "nationality",
+  "name": "account name",
+  "communicationOption": "comm",
+  "firstName": "firstname",
+  "surname": "surname",
+  "gender": "M",
+  "prefLanguage": "english"
+}

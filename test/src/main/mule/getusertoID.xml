@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+	<flow name="getusertoIDFlow" doc:id="bee3b933-0844-43a5-a062-67f74513bf4c" >
+		<flow-ref doc:name="Save_input_Flow" doc:id="d52e18a0-258b-434c-8356-bd2ae29b792d" name="Save-input-Sub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f5ae0e50-9382-4d78-9333-631c2d818d4b" message="#[vars.id_user]"/>
+		<ee:transform doc:name="Transform Message" doc:id="1b56fcc2-6763-4afb-8954-abc115f0b769" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+if(vars.id_user == "4"){	
+   id: vars.id_user as String,
+   firstName: "yannick",
+   name: "teguia",
+   nationality: "camerun",
+   note: "id trovato"
+}else{
+	
+	note: "id non trovato",
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="69e7558e-3994-47cd-aa33-27e06c98199b" message="#[payload]"/>
+		<http:request method="POST" doc:name="Request" doc:id="65f92408-9b59-4f69-95ed-c8a15b483d47" config-ref="HTTP_Request_AccountConfig" path="/getUserFromID"/>
+	</flow>
+</mule>

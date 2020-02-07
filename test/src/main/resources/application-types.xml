@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="account" format="json">
+      <types:shape format="weave" example="examples/account-2.json"><![CDATA[%dw 2.0
+
+type account = {|
+  id: Number {"typeId": "int"}, 
+  firstname: String, 
+  lastName: String, 
+  birthday: String, 
+  phone: Number {"typeId": "double"}, 
+  city: String, 
+  country: String
+|} {"example": "{\\\"id\\\":1,\\\"firstname\\\":\\\"franck\\\",\\\"lastName\\\":\\\"teguia\\\",\\\"birthday\\\":\\\"2019-02-12\\\",\\\"phone\\\":34443567686,\\\"city\\\":\\\"milan\\\",\\\"country\\\":\\\"italy\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="getUserbyId" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#aaed74d9-632f-4537-8eaa-ccaf27330cec"/>
+</types:mule>
