@@ -5,7 +5,9 @@ pipeline {
 	jdk 'jdk1.8'
 	maven 'maven3'
   }
-  
+	
+	
+	stages{  
     stage('Deploy CloudHub') { 
 	    
       environment { 
@@ -31,4 +33,4 @@ pipeline {
       }
       }      
     }
-	}
+}
