@@ -94,5 +94,9 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
+	<parent>
+ <groupId>com.javastreets</groupId>
+ <artifactId>mule-maven-parent-pom</artifactId>
+ <version>0.0.1-SNAPSHOT</version>
+     </parent>
 </project>
