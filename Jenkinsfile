@@ -9,9 +9,7 @@ pipeline {
   stages {	  
         stage('Build') {
             steps {
-		    
                 echo 'maven clean'
-                bat ' mvn -f /Program Files(x86)/Jenkins/workspace/TestFlow/flow/pom.xml clean install '  
             }
 	}
     stage('Deploy CloudHub') { 
