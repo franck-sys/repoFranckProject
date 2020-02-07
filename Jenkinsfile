@@ -11,11 +11,6 @@ pipeline {
       environment { 
 	        ANYPOINT_CREDENTIALS = credentials('credential-test-fr')
 		ANYPOINT_BUSINESS_GROUP = "cloudhub organisation"
-		ANYPOINT_URI = "https://anypoint.mulesoft.com"
-		ANYPOINT_DEPLOYMENT_ENV_DEV = "developement"
-		ANYPOINT_DEPLOYMENT_DEV_NAME = "Training"
-		ANYPOINT_DEPLOYMENT_ENV_STAGING ="test"
-		ANYPOINT_DEPLOYMENT_STAGING_NAME = "test_repo_staging"
 		ANYPOINT_DEPLOYMENT_REGION = "eu-west-2"
 		ANYPOINT_DEPLOYMENT_WORKTYPE = "micro"
 		ANYPOINT_DEPLOYMENT_WORKS = "1"
