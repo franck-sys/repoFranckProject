@@ -8,13 +8,6 @@ pipeline {
   
   stages {
 	  
-stage('Unit Test') { 
-      steps {
-        bat  '''
-	     mvn clean test
-	     '''
-      }
-    }
     stage('Deploy CloudHub') { 
       environment { 
 	        ANYPOINT_CREDENTIALS = credentials('credential-test-fr')
