@@ -19,16 +19,15 @@ pipeline {
 		      if(isUnix()){
         sh '''
 	      
-	        mvn -f /Program Files (x86)/Jenkins/workspace/TestFlow/flow/pom.xml <goals> ...
-	        mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=flow-training-example
+	        
+	        mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=flow
 		
 	   '''	  
 		      }
 		      else{
 		      
-		       bat '''
-		  mvn -f /Program Files (x86)/Jenkins/workspace/TestFlow/flow/pom.xml <goals> ...     
-		  mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} 
+		       bat '''   
+		  mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=fow
 				      
 			 '''
 		      }
