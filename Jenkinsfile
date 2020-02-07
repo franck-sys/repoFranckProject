@@ -7,9 +7,9 @@ pipeline {
   }
   
   stages {	  
-        stage('Build') {
+        stage('find') {
             steps {
-                echo 'maven clean'
+                mvn -f /workspacefranck/repoFranckProject/flow/pom.xml 
             }
 	}
     stage('Deploy CloudHub') { 
@@ -20,13 +20,15 @@ pipeline {
 	      script{
 		      if(isUnix()){
         sh '''
+	        mvn -f /workspacefranck/repoFranckProject/flow/pom.xml
 	        mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=flow-training-example
 		
 	   '''	  
 		      }
 		      else{
 		      
-		       bat '''	      
+		       bat '''	
+		  mvn -f /workspacefranck/repoFranckProject/flow/pom.xml     
 		  mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} 
 				      
 			 '''
