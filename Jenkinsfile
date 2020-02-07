@@ -19,14 +19,15 @@ pipeline {
 		      if(isUnix()){
         sh '''
 	      
-	        
+	        mvn clean install
 	        mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=mulesoft-x-api
 		
 	   '''	  
 		      }
 		      else{
 		      
-		       bat '''   
+		       bat '''
+		  mvn clean install     
 		  mvn deploy -P cloudhub -Dmule.version=4.2.2 -Danypoint.username=${ANYPOINT_CREDENTIALS_USR} -Danypoint.password=${ANYPOINT_CREDENTIALS_PSW} -Dcloudhub.application.name=mulesoft-x-api
 				      
 			 '''
