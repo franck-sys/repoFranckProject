@@ -37,6 +37,11 @@
             <version>1.5.11</version>
             <classifier>mule-plugin</classifier>
         </dependency>
+		<dependency>
+			<groupId>org.apache.maven.scm</groupId>
+			<artifactId>maven-scm-provider-gitexe</artifactId>
+			<version>1.9.5</version>
+		</dependency>	
         <dependency>
             <groupId>org.mule.connectors</groupId>
             <artifactId>mule-sockets-connector</artifactId>
@@ -80,6 +85,7 @@
             <version>1.2.0</version>
             <classifier>mule-plugin</classifier>
         </dependency>
+		
     </dependencies>
 
 	<repositories>
