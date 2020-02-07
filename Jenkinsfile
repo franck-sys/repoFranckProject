@@ -8,6 +8,16 @@ pipeline {
 	
 	
 	stages{  
+		
+		stage ('Initialize') {
+            steps {
+                bat '''
+                    echo "PATH = ${PATH}"
+                    echo "MVN_HOME = ${MVN_HOME}"
+                '''
+            }
+        }
+		
     stage('Deploy CloudHub') { 
 	    
       environment { 
