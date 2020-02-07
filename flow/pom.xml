@@ -34,7 +34,7 @@
 
 					 <password>${anypoint.password}</password>
 
-					 <applicationName>${artifactId}-${maven.build.timestamp}</applicationName>
+					 <applicationName>${artifactId}</applicationName>
 
 					 <environment>${cloundhub.env}</environment>
 
