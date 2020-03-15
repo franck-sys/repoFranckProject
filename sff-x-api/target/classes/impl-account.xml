@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="impl-accountFlow" doc:id="f7a6a3d3-b073-4a37-94ee-353834de1889" >
+		<set-variable value="#[message.payload]" doc:name="Set Variable" doc:id="e3ad83ad-373c-449a-afe0-221291a022f8" variableName="set_payload"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ce8a8dc0-377a-402e-8edc-f07c8f9ab4f1" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="54994ae2-6683-45f3-a669-09c6f3a9d004" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	id : 333
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[payload]" doc:name="set_id" doc:id="59b9020c-894e-4495-a7ba-bc296354a42a" variableName="id"/>
+		<logger level="INFO" doc:name="Logger" doc:id="38bce4b4-ae9f-423a-a1df-6335e25765b7" message="#[vars.id]"/>
+		<http:request method="GET" doc:name="Request" doc:id="6d926d93-6aa9-40d5-bb9a-5ec0891403e9" config-ref="HTTP_Request_configuration" path="/account/{id}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : attributes.uriParams.id
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+</mule>

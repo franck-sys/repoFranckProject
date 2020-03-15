@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="impl-accountcodeFlow" doc:id="84b8612b-5275-4ec5-9dcd-2767828187a9" >
+		<set-variable value="#[message.payload]" doc:name="var" doc:id="758285c7-eb97-473c-a66e-78614e222861" variableName="id"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c31dff98-0119-4143-b864-43b483960b91" message="#[vars.id]"/>
+		<ee:transform doc:name="Transform Message" doc:id="95524c52-e345-4f81-889c-9750ad0dd96f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code : 500,
+	status: "ko",
+	id : "33",
+	iban: "34erfffffkkkk"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
