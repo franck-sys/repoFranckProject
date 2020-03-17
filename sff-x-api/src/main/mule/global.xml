@@ -5,26 +5,44 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<global-property doc:name="Global Property" doc:id="f915e89c-50ab-4b65-a652-e1d461e7ff81" name="env" value="dev" />
-	<configuration-properties doc:name="Configuration properties" doc:id="e076f5eb-f534-4fbf-a524-0502c4862173" file="sf-x-ap.${env}.properties" />
-	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="a111d04d-0203-4c56-a978-282cf6f36a5c" basePath="/api" >
-		<http:request-connection host="${http.request.process.host}" port="${http.request.process.port}" />
+	<global-property doc:name="Global Property" doc:id="dc6294c0-2bd7-4d63-8cbc-f3027f2c81b8" name="env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="ff61a1ab-402e-42e1-885e-0fd785c72590" file="sf-x-ap.${env}.properties" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="9fabe26c-8681-4439-9b0a-3a6b835f2f70" basePath="/api" >
+		<http:request-connection host="${http.request.process.host}"/>
 	</http:request-config>
-	<configuration doc:name="Configuration" doc:id="e87b56b1-b8d7-491f-bce1-8541f11e6469" defaultErrorHandler-ref="globalError_Handler" />
-	<error-handler name="globalError_Handler" doc:id="3efec3db-21bf-4dd8-9151-ba82103292ff" >
-		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="275b5f5b-69c6-4303-8a78-648735aed117" >
-			<logger level="INFO" doc:name="Logger" doc:id="f4da46c9-19e9-471f-aae6-0f9bccf6b7aa" message="#[%dw 2.0
+	<configuration doc:name="Configuration" doc:id="4a36869f-689b-42fc-b349-ae1a8d5b67d7" defaultErrorHandler-ref="globalError_Handler" />
+	<error-handler name="globalError_Handler" doc:id="0d837979-7517-4ee5-a1e9-f30f99cd26f6" >
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="45ede31b-5f7f-435c-a389-05cf548af1f9" type="HTTP:BAD_REQUEST">
+			<logger level="INFO" doc:name="Logger" doc:id="dceff11a-09c8-4177-8031-9cb65684d826" message="#[%dw 2.0
 output application/json
 ---
 payload]"/>
-			<ee:transform doc:name="Transform Message" doc:id="ae1e3768-a9ec-424a-9485-c556fab8d331" >
+			<ee:transform doc:name="Transform Message" doc:id="b2af5602-4edc-480e-92c8-fce35ac363dd" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	code : 400,
+	status : "bad request"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-continue>
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="bf647eee-16f3-4faf-994f-f189668a0b01" type="HTTP:CONNECTIVITY">
+			<logger level="INFO" doc:name="Logger" doc:id="7cfc5274-e8d6-4212-8161-f2e4e67b6ee4" message="#[%dw 2.0
+output application/json
+---
+payload]"/>
+			<ee:transform doc:name="Transform Message" doc:id="54b79ec2-3800-4e0a-9f7e-3ee7eaf78fb5" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
 {
 	code : 500,
-	status : "internal server error"
+	error: error.description,
+	status : "connectivity"
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
