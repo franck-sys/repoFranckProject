@@ -1,0 +1,31 @@
+{
+  "configs": [
+    "impl-account.xml",
+    "global.xml",
+    "sff-x-api.xml",
+    "common.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:sff-x-api:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.2.2",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "log4j2.xml",
+        "global.xml",
+        "impl-account.xml",
+        "sff-x-api.xml",
+        "common.xml",
+        "sf-x-ap.dev.properties"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

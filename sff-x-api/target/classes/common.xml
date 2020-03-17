@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="commonFlow" doc:id="b09bff38-8adc-429b-88c2-fb5fa8cc2c3f" >
+		<set-variable value='#[attributes.headers."correlation-Id" default uuid()]' doc:name="Set Variable" doc:id="ec23c749-b6e1-4673-adb1-422ddf5293dd" variableName="correlation-id"/>
+		<try doc:name="Try" doc:id="26a84eba-e78f-426e-b8cd-5f951ca80bb4" >
+			<set-variable value="#[payload]" doc:name="Set Variable" doc:id="aff9370c-10ce-4a83-ba5d-8d1afac86b67" variableName="payload"/>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="5fde471b-e73f-45f6-ba19-d5bd608dbf02" >
+					<logger level="INFO" doc:name="Logger" doc:id="33121252-1ba9-433d-b27f-07505f150371" message='#[%dw 2.0
+output application/json
+---
+{
+	error: "payload not found"
+}]'/>
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<set-variable value="#[attributes]" doc:name="Set Variable" doc:id="49deefff-d444-424c-89f9-1a20f1962377" variableName="attribute"/>
+	</flow>
+</mule>
