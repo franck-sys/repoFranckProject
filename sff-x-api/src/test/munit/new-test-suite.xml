@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="new-test-suite.xml" />
+	<munit:test name="new-test-suite-sff-x-api-mainTest" doc:id="678cf629-a654-4325-8b57-735174c7320a" description="Test" ignore="true">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to sff-x-api-main" doc:id="b433ff29-d670-496e-a957-34371b70d9ab" name="sff-x-api-main"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="new-test-suite-sff-x-api-consoleTest" doc:id="e25b2baa-9cf4-47c8-8a33-e5854c7c3369" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to sff-x-api-console" doc:id="c13ded86-74e9-4e8d-a6f2-b52f92c99dc7" name="sff-x-api-console"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="new-test-suite-post:\account\(id):application\json:sff-x-api-configTest" doc:id="2f2f5730-f3e7-450b-a20e-3e0a8dcd1ab1" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\account\(id):application\json:sff-x-api-config" doc:id="9ffd8884-e921-4046-af62-ba3e9503c4dd" name="post:\account\(id):application\json:sff-x-api-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="new-test-suite-impl-accountFlowTest" doc:id="1d71742d-7da6-4318-b291-52d09e8208f5" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to impl-accountFlow" doc:id="2016d0c6-3286-411e-86f8-c30daebcc796" name="impl-accountFlow"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="new-test-suite-commonFlowTest" doc:id="f1f0dc1f-bb9f-4849-b58c-d1296074546e" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to commonFlow" doc:id="9e79d7fd-d3f0-4ebb-86ff-6b2de0166d1b" name="commonFlow"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

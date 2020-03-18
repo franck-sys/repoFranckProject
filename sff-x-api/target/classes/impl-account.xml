@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="496d745d-168b-486a-9f15-d5bc6bf1e3a2" >
+		<os:connection >
+			<reconnection >
+				<reconnect-forever />
+			</reconnection>
+		</os:connection>
+	</os:config>
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="9ca8bdf1-b446-4cee-9e8a-805611986389" maxEntries="30" entryTtl="365" expirationInterval="30" config-ref="ObjectStore_Config" />
 	<flow name="impl-accountFlow" doc:id="f7a6a3d3-b073-4a37-94ee-353834de1889" >
 		<flow-ref doc:name="Save-input" doc:id="85096898-099f-4881-a829-3280b6facdb7" name="commonFlow"/>
 		<logger level="INFO" doc:name="Logger" doc:id="38bce4b4-ae9f-423a-a1df-6335e25765b7" message="#[payload]"/>
